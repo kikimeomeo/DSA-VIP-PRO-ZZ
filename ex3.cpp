@@ -1,13 +1,26 @@
 #include <iostream>
 using namespace std;
 
-void generateBinaryStrings(int n, string str)
+int RotateArr(int a[], int n)
 {
-	if (n == str.length())
+	if (n <= 1) return a[n];
+	int left = 0, right = n - 1, mid;
+	while (a[mid] <= a[mid + 1])
 	{
-		cout << str << endl;
-		return;
+		mid = (left + right) / 2;
+		if (a[mid] < a[0]) right = mid - 1;
+		else left = mid + 1;
 	}
-	generateBinaryStrings(n, str + "0");
-	generateBinaryStrings(n, str + "1");
+	return a[mid + 1];
+}
+
+int main()
+{
+	int n;
+	cin >> n;
+	int *a = new int[n];
+	for (int i = 0; i < n; ++i) cin >> a[i];
+	cout << RotateArr(a, n);
+	delete[] a;
+	return 0;
 }
