@@ -3,7 +3,7 @@ using namespace std;
 
 int RotateArr(int a[], int n)
 {
-	if (n <= 1) return a[n];
+	if (n <= 1) return n;
 	int left = 0, right = n - 1, mid;
 	while (a[mid] <= a[mid + 1])
 	{
@@ -11,7 +11,7 @@ int RotateArr(int a[], int n)
 		if (a[mid] < a[0]) right = mid - 1;
 		else left = mid + 1;
 	}
-	return a[mid + 1];
+	return mid + 1;
 }
 
 int main()
