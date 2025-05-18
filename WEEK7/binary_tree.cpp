@@ -20,7 +20,7 @@ vector <vector <int>> LevelOrder(NODE* pRoot);
 int countNode(NODE* pRoot);
 int sumNode(NODE* pRoot);
 int Level(NODE* pRoot, NODE* p);
-int treeHeight(NODE* pRoot);
+int Height(NODE* pRoot);
 int heightNode(NODE* pRoot, int value);
 int countLeaf(NODE* pRoot);
 int max(int a, int b);
@@ -31,10 +31,10 @@ int max(int a, int b)
     return (a < b) ? b : a;
 }
 
-int treeHeight(NODE* pRoot)
+int Height(NODE* pRoot)
 {
     if (!pRoot) return -1;
-    return max(treeHeight(pRoot->p_left), treeHeight(pRoot->p_right)) + 1;
+    return max(Height(pRoot->p_left), Height(pRoot->p_right)) + 1;
 }
 
 //ham chinh
@@ -82,7 +82,7 @@ vector <int> LRN(NODE* pRoot)
 vector <vector <int>> LevelOrder(NODE* pRoot)
 {
     queue <NODE*> node; //luu lan luot cac node theo level tu trai sang phai
-    int treeheight = treeHeight(pRoot), count_at_level = 1, count = 0;//bien dem so phan tu o tung level
+    int treeheight = Height(pRoot), count_at_level = 1, count = 0;//bien dem so phan tu o tung level
     vector <vector <int>> result_Level(treeheight + 1); //ket qua
     if (pRoot) node.push(pRoot); //neu cay khong rong
     for (int i = 0; i <= treeheight; ++i) //vong lap level
@@ -144,21 +144,17 @@ int Level(NODE* pRoot, NODE* p)
 
 int heightNode(NODE* pRoot, int value)
 {
-    int level = 0;
-    NODE* saved = pRoot;
     while (pRoot)
     {
         if (value < pRoot->key) 
         {
             pRoot = pRoot->p_left;
-            ++level;
         }
         else if (value > pRoot->key) 
         {
             pRoot = pRoot->p_right;
-            ++level;
         }
-        else return treeHeight(saved) - level;
+        else return Height(pRoot);
     }
     return -1;
 }
